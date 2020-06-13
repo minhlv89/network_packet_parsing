@@ -154,18 +154,19 @@ public:
 		else{
 			return 1;
 		}
-		tlm.subsys_id = subsystemID;
-		tlm.compo_id = componentID;
+
 		tlmType = secondaryHeader2 & TELEMETRY_TYPE_BIT_MASK;
 
 
 		if (tlmType != 1) {
-			printf("Parser::extractData invalid Telemetry:%d\n",protocol);
+			printf("Parser::extractData invalid Telemetry:%d\n",tlmType);
 			return 1;
 		}
 		else {
 			tlm.temperature = payload.tempFVal;
 		}
+		tlm.subsys_id = subsystemID;
+		tlm.compo_id = componentID;
 		//printf("Parser::extractData: tlmType:%d, subsys:%d, compo:%d, temp=%.1f\n"
 		//	,tlmType, tlm.subsys_id, tlm.compo_id, tlm.temperature);
 		return 0;

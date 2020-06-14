@@ -7,7 +7,6 @@
 #include <arpa/inet.h>
 #endif
 #include "tlm.h"
-#include "rx_interface.h"
 
 #define MAGIC_HEADER				0xABBACFFC
 #define MAGIC_HEADER_LENGTH			4
@@ -27,7 +26,7 @@
 #define COMPONENT_COM_3		10
 #define COMPONENT_COM_4		20
 
-#define PACKET_CONTENT_START	4
+#define PACKET_CONTENT_START	4	//secondary header position
 
 class Parser {
 public:
@@ -35,7 +34,7 @@ public:
 		uint8_t position = PACKET_CONTENT_START;
 		uint8_t packetByte;
 
-		//printf("Parser::detectPkt Start to parse packet\n");
+		printf("Parser::detectPkt Start to parse packet\n");
 
 		if(0 == detectMagicHeader(byte)){
 			printf("Parser::detectPkt Bad Magic!\n");
@@ -45,9 +44,8 @@ public:
 			uint8_t packetChecksum = 0;
 			payload.tempIVal = 0;
 			for(int i = 1; i < PACKET_LENGTH; i++) {
-				//packetByte = iface.getByte();
+				packetByte = iface.getByte();
 
-				packetByte = PacketInterface::getByte();
 				switch (position)
 				{
 				case 4:
@@ -97,7 +95,7 @@ public:
 				}
 			}
 		}
-		//printf("Parser::detectPkt Finish to parse packet\n");
+		printf("Parser::detectPkt Finish to parse packet\n");
 
 		return 1;
 	}
@@ -157,10 +155,8 @@ private:
 			return 0;
 		}
 		else{
-			//while(iface.existRcvData()){
-			while(PacketInterface::existRcvData()){
-				//uint8_t packetByte = iface.getByte();
-				uint8_t packetByte = PacketInterface::getByte();
+			while(iface.existRcvData()){
+				uint8_t packetByte = iface.getByte();
 				if(packetByte != 0xBA){
 					if(packetByte = 0xAB){
 						continue;
@@ -169,8 +165,7 @@ private:
 						return 0;
 					}
 				}
-				//packetByte = iface.getByte();
-				packetByte = PacketInterface::getByte();
+				packetByte = iface.getByte();
 				if(packetByte != 0xCF){
 					if(packetByte = 0xAB){
 						continue;
@@ -179,8 +174,7 @@ private:
 						return 0;
 					}
 				}
-				//packetByte = iface.getByte();
-				packetByte = PacketInterface::getByte();
+				packetByte = iface.getByte();
 				if(packetByte != 0xFC){
 					if(packetByte = 0xAB){
 						continue;

@@ -22,7 +22,6 @@ public:
 			readByte = packetDataQ.front();
 			packetDataQ.pop();
 		}
-		//printf("PacketInterface::GetByte readByte = %2x\n", readByte);
 		return readByte;
 	}
 };

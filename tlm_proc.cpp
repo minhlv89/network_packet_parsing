@@ -1,6 +1,5 @@
 #include <iostream>
 #include <stdint.h>
-#include <stdio.h>
 #include <vector>
 #include <queue>
 
@@ -30,7 +29,6 @@ int unit_test(vector<uint8_t>&testPacket, int detect, uint8_t subsys, uint8_t co
 	setPacketData(testPacket, packetDataQ);
 	Parser parser;
 
-	//cout << "Now start to parse the packet" << endl;
 	CompoTlm_t tlm = {};
 	int isDetect = 1;
 
@@ -39,7 +37,7 @@ int unit_test(vector<uint8_t>&testPacket, int detect, uint8_t subsys, uint8_t co
 		// Parse incoming bytes and detect packet
 		if (parser.detectPkt(byte)) {
 			// One, correct packet has been detected
-			//cout << "Packet detected. Now extract!!!" << endl;
+			//printf("Packet detected. Now extract!!!\n");
 			int err = parser.extractData(tlm);
 			if (err == 0) {
 			//printf("Extract result: subsys=%d, comp=%d, temp=%.1f\n", tlm.subsys_id, tlm.compo_id, tlm.temperature);

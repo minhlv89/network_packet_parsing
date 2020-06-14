@@ -17,7 +17,7 @@ public:
 
 
 	static uint8_t getByte(){
-		uint8_t readByte;
+		uint8_t readByte = 0;
 		if(0 == packetDataQ.empty()){
 			readByte = packetDataQ.front();
 			packetDataQ.pop();

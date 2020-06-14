@@ -1,8 +1,7 @@
 #pragma once
-#pragma comment(lib, "Ws2_32.lib")
 #include<iostream>
 #include <stdint.h>
-#ifdef OS_WINDOWS
+#ifdef _WIN32
 #include <WinSock2.h>
 #else
 #include <arpa/inet.h>

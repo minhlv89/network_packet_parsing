@@ -24,7 +24,7 @@ int setPacketData(vector<uint8_t> &data, queue<uint8_t> &dataQ){
 	return 0;
 }
 
-int unit_test(vector<uint8_t>&testPacket, int detect, uint8_t subsys, uint8_t compo_id, float temperature) {
+int unit_test(vector<uint8_t>&testPacket, int expectDetect, uint8_t expectSubsys, uint8_t expectCompo_id, float expectTemperature) {
 	PacketInterface iface;
 	setPacketData(testPacket, packetDataQ);
 	Parser parser;
@@ -50,7 +50,8 @@ int unit_test(vector<uint8_t>&testPacket, int detect, uint8_t subsys, uint8_t co
 			isDetect = 0;
 		}
 	}
-	if(detect == isDetect && subsys == tlm.subsys_id && compo_id == tlm.compo_id && temperature == tlm.temperature){
+	if(expectDetect == isDetect && expectSubsys == tlm.subsys_id && 
+		expectCompo_id == tlm.compo_id && expectTemperature == tlm.temperature){
 		return 1;
 	}
 	return 0;

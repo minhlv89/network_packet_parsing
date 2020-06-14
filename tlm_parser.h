@@ -1,11 +1,7 @@
 #pragma once
 #include<iostream>
 #include <stdint.h>
-#ifdef _WIN32
-#include <WinSock2.h>
-#else
-#include <arpa/inet.h>
-#endif
+
 #include "tlm.h"
 #include "rx_interface.h"
 
